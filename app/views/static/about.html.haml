@@ -1,7 +1,7 @@
 %h1 About Us
-%p WE ARE AWESOME
 %body{:id => @body_id}
 = image_tag("fridayhug.jpg")
+%p WE ARE AWESOME
 %ul
   %li
     %a{href: 'http://ichabodcole.github.com'} Cole Reed
@@ -19,3 +19,10 @@
     %a{href: 'http://wobh.github.com'} William Clifford
   %li
     %a{href: 'http://criskelly.github.com'} Cris Kelly
+%section
+  %a{href: 'http://www.portlandcodeschool.com/'}= image_tag("black-dino.png")
+<div id="b" style="position:absolute; top:50px">B</div>
+$(document).ready(function() {
+    $("#b").animate({left: "+=500"}, 2000);
+    $("#b").animate({left: "-=300"}, 1000);
+});
