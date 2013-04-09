@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.hoverintent
+//= require chosen-jquery
+//= require global
 //= require_tree .

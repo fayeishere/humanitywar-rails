@@ -5,37 +5,41 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    %link{rel: "shortcut icon", href: "/favicon.ico"}
+    %meta{:name => "google-site-verification", :content => "i-WU139h-KZEliATtGQH0DE9urIdTWA2ekXdjzwqQok"}
   %body{:id => @body_id}
     %header.cf
+      =link_to(image_tag("https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"), "https://github.com/portlandcodeschool/humanitywar-rails", :id => "forkme")
       .wrapper
-        %h1
-          Cards
-          %br
-          Against
-          %br
-          Humanity
-          %br
-          War
+        %a{href: entries_path}
+          %h1
+            Cards
+            %br
+            Against
+            %br
+            Humanity
+            %br
+            War
 
         %nav
           %ul
             %li
-              %a{href: root_path} Home
+              %a{href: entries_path} Home
             %li
-              %a{href: entries_winning_path} Winningest
+              %a{href: winning_entries_path} Winningest
             %li
-              %a{href: entries_losing_path} Losingest
+              %a{href: losing_entries_path} Losingest
             %li
-              %a{href: entries_newest_path} Newest
+              %a{href: newest_entries_path} Newest
             %li
-              %a{href: '#'} Submit
+              %a{href: new_entry_path} Submit
             %li
-              - if !params[:easy_mode]
-                %a{href: '/?easy_mode=true', class: 'easy-mode'} Easy mode
-                (off)
+              - if params[:easy_mode] == "true"
+                %a{href: '?easy_mode=false', class: 'easy-mode'} Easy mode
+                (is on)
               - else
-                %a{href: '/', class: 'easy-mode'} Easy mode
-                (on)
+                %a{href: '?easy_mode=true', class: 'easy-mode'} Easy mode
+                (is off)
             %li
               %a{href: '/static/about'} About Us
 
@@ -44,4 +48,4 @@
         = yield
       %footer
         %p
-          Cards Against Humanity is a trademark of Cards Against Humanity LLC
+          Cards Against Humanity is a trademark of Cards Against Humanity LLC. <a href="http://cardsagainsthumanity.com/">Click here to buy the real game!</a>

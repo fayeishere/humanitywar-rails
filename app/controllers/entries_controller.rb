@@ -4,7 +4,6 @@ class EntriesController < ApplicationController
   # GET /entries
   # GET /entries.json
   def index
-    @body_id = "home_page"
     if params[:easy_mode] == 'true'
       @entries = Entry.easy_game
     else
@@ -53,6 +52,37 @@ class EntriesController < ApplicationController
     end
   end
 
+  #GET /entries/new
+  def new
+    @entry = Entry.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @entry }
+    end
+  end
+
+  #POST /entries/create
+  def create
+    @entry = Entry.create(params[:entry].merge(:playa_id => 1))
+
+    # Update the m2m table with the order of cards. These will already exist
+    # but they'll have a default order of 0
+    if @entry.errors.empty?
+      @entry.order_white_cards(params[:entry][:white_card_ids])
+    end
+
+    respond_to do |format|
+      if @entry.errors.empty?
+        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+        format.json { render json: @entry, status: :created, location: @entry }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @entry.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 # GET /entries/winning
   def winning
     @entries = Entry.winningest.paginate(:page => params[:page])
@@ -92,5 +122,6 @@ class EntriesController < ApplicationController
         :last_lose_id => Entry.find(session[:last_lose_id])
       }
     end
+  rescue
   end
 end

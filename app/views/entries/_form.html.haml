@@ -1,0 +1,20 @@
+
+= simple_form_for @entry do |f|
+  - if @entry.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
+      %ul
+        - @entry.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.association :black_card, :input_html => { class: 'chzn-select' }
+
+  .input.select.required.entry_white_cards
+    = f.label :white_cards
+    = select_tag "entry[white_card_ids][]", options_from_collection_for_select(WhiteCard.all, 'id', 'text', (@entry.white_cards[0] ? @entry.white_cards[0].id : nil)), :include_blank => true, id: 'entry_white_card_ids_0', class: 'chzn-select'
+    = select_tag "entry[white_card_ids][]", options_from_collection_for_select(WhiteCard.all, 'id', 'text', (@entry.white_cards[1] ? @entry.white_cards[1].id : nil)), :include_blank => true, id: 'entry_white_card_ids_1', class: 'chzn-select'
+    = select_tag "entry[white_card_ids][]", options_from_collection_for_select(WhiteCard.all, 'id', 'text', (@entry.white_cards[2] ? @entry.white_cards[2].id : nil)), :include_blank => true, id: 'entry_white_card_ids_2', class: 'chzn-select'
+  .actions
+    = f.submit 'Save'
+
+%p <strong>Our card list is full of holes.</strong> If you want to submit a combo but the card is missing please <em>send a photo</em> of the black/white cards to: <a href="mailto:vosechu+cahw@gmail.com">vosechu+cahw@gmail.com</a>. You can also submit a pull request here: <a href="https://github.com/portlandcodeschool/humanitywar-rails">Github repo</a>

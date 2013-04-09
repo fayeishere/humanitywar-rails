@@ -5,15 +5,19 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
+group :production do
+  gem 'pg'
+  gem 'rack-google-analytics', :require => 'rack/google-analytics'
+end
+group :development do
+  gem 'sqlite3'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'haml-rails', '~> 0.4.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -21,6 +25,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+gem 'chosen-rails'
+gem 'simple_form'
+gem 'haml-rails', '~> 0.4.0'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.0'
 
@@ -48,4 +55,8 @@ group :development, :test do
   gem 'rack-livereload'
   gem 'rb-fsevent'
   gem 'guard-livereload'
+
+  gem 'debugger'
 end
+
+
